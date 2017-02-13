@@ -26,7 +26,8 @@
 				#define __intptr_t_defined
 				#define _INTPTR_T_DEFINED
 			# endif
-			#ifndef _UINTPTR_T_DEFINED
+			#if !defined(__uintptr_t_defined) && !defined(_UINTPTR_T_DEFINED)
+				#define __uintptr_t_defined
 				#define _UINTPTR_T_DEFINED
 				#undef uintptr_t
 				typedef unsigned long int       uintptr_t;
@@ -37,7 +38,8 @@
 				#define __intptr_t_defined
 				#define _INTPTR_T_DEFINED
 			# endif
-			#ifndef _UINTPTR_T_DEFINED
+			#if !defined(__uintptr_t_defined) && !defined(_UINTPTR_T_DEFINED)
+				#define __uintptr_t_defined
 				#define _UINTPTR_T_DEFINED
 				#undef uintptr_t
 				typedef unsigned int            uintptr_t;
