@@ -19,18 +19,29 @@
 	#include <stddef.h>
 	#include <ctype.h>
 	#if defined _WIN32 || defined __CYGWIN__
+		// For compatibility with different OS & configurations
 		#if __WORDSIZE == 64
-			# ifndef __intptr_t_defined
-			typedef long int                intptr_t;
-			#  define __intptr_t_defined
+			# if !defined(__intptr_t_defined) && !defined(_INTPTR_T_DEFINED)
+				typedef long int                intptr_t;
+				#define __intptr_t_defined
+				#define _INTPTR_T_DEFINED
 			# endif
-			typedef unsigned long int       uintptr_t;
+			#ifndef _UINTPTR_T_DEFINED
+				#define _UINTPTR_T_DEFINED
+				#undef uintptr_t
+				typedef unsigned long int       uintptr_t;
+			#endif /* _UINTPTR_T_DEFINED */
 		#else
-			# ifndef __intptr_t_defined
-			typedef int                     intptr_t;
-			#  define __intptr_t_defined
+			# if !defined(__intptr_t_defined) && !defined(_INTPTR_T_DEFINED)
+				typedef int                     intptr_t;
+				#define __intptr_t_defined
+				#define _INTPTR_T_DEFINED
 			# endif
-			typedef unsigned int            uintptr_t;
+			#ifndef _UINTPTR_T_DEFINED
+				#define _UINTPTR_T_DEFINED
+				#undef uintptr_t
+				typedef unsigned int            uintptr_t;
+			#endif /* _UINTPTR_T_DEFINED */
 		#endif
 	#else
 		#include <stdint.h>
